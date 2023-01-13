@@ -16,7 +16,7 @@
     "jsx-quotes": ["error", "prefer-double"],
     "semi": [2, "always"],
     "eol-last": ["error", "always"],
-    "no-console": 2,
+    "no-console": 1,
     "no-extra-semi": 2,
     "semi-spacing": [2, { "before": false, "after": true }],
     "no-dupe-else-if": 0,
