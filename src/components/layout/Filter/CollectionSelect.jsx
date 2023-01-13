@@ -11,6 +11,18 @@ import {
 import { Disclosure } from "../../shared/Disclosure";
 import { stac } from "../../../types";
 
+function getCollectionLabel(selectedCollections) {
+  const n = selectedCollections.length;
+  switch (n) {
+    case 0:
+      return "Select collections";
+    case 1:
+      return "1 collection";
+    default:
+      return `${n} collections`;
+  }
+}
+
 function CollectionSelect({ collections, selectedCollections, setCollections }) {
   const handleChange = useCallback((event) => {
     const { value } = event.target;
@@ -23,9 +35,9 @@ function CollectionSelect({ collections, selectedCollections, setCollections }) 
   }, [selectedCollections, setCollections]);
 
   return (
-    <Disclosure title="Select collections">
+    <Disclosure title={getCollectionLabel(selectedCollections)}>
       <fieldset>
-        <PopoverHeader as="legend">Select Collections</PopoverHeader>
+        <PopoverHeader as="legend">Select collections</PopoverHeader>
         <PopoverBody>
         <CheckboxGroup>
           <Stack spacing="1" direction="column">
