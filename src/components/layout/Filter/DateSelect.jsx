@@ -12,6 +12,30 @@ import {
 
 import { Disclosure } from "../../shared/Disclosure";
 
+function getDateRangeLabel(fromDate, toDate) {
+  let fromLabel;
+  let toLabel;
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  if (!(fromDate || toDate)) {
+    return "Select date range";
+  }
+
+  if (fromDate) {
+    fromLabel = new Date(fromDate).toLocaleString("en-US", options);
+  }
+
+  if (toDate) {
+    toLabel = new Date(toDate).toLocaleString("en-US", options);
+  }
+
+  return `${fromLabel ? `From: ${fromLabel}` : ""} ${toLabel ? `To: ${toLabel}` : ""}`.trim();
+}
+
 function DateSelect({ dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo }) {
   const handleRangeFromChange = useCallback((e) => setDateRangeFrom(e.target.value), [setDateRangeFrom]);
   const handleRangeToChange = useCallback((e) => setDateRangeTo(e.target.value), [setDateRangeTo]);
@@ -19,7 +43,7 @@ function DateSelect({ dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRange
   const rangeError = (!!dateRangeTo && !!dateRangeFrom) && dateRangeFrom >= dateRangeTo;
 
   return (
-    <Disclosure title="Select dates">
+    <Disclosure title={getDateRangeLabel(dateRangeFrom, dateRangeTo)}>
       <fieldset>
         <PopoverHeader as="legend">Select dates</PopoverHeader>
         <PopoverBody>
