@@ -16,7 +16,7 @@ function DateSelect({ dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRange
   const handleRangeFromChange = useCallback((e) => setDateRangeFrom(e.target.value), [setDateRangeFrom]);
   const handleRangeToChange = useCallback((e) => setDateRangeTo(e.target.value), [setDateRangeTo]);
 
-  const rangeError = dateRangeFrom >= dateRangeTo;
+  const rangeError = (!!dateRangeTo && !!dateRangeFrom) && dateRangeFrom >= dateRangeTo;
 
   return (
     <Disclosure title="Select dates">
