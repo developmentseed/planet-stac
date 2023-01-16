@@ -6,11 +6,14 @@ import {
   theme,
 } from "@chakra-ui/react";
 
-import { Title } from "./components/layout/Title";
+import { Header } from "./components/layout/Header";
 import { Filter } from "./components/layout/Filter";
 import { ItemList } from "./components/layout/ItemList";
 
 function App() {
+  const [stacApiUrl, setStacApiUrl] = useState("http://example.com/stac");
+  console.log(stacApiUrl);
+
   // TODO: replace with useCollections
   const collections = [
     {id: "naruto", title: "Naruto"},
@@ -55,7 +58,13 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Grid minH="100vh" templateRows="max-content max-content 1fr">
-        <GridItem p={3} borderBottom="1px solid" borderColor="gray.200"><Title /></GridItem>
+        <GridItem p={3} borderBottom="1px solid" borderColor="gray.200">
+          <Header
+            title="Planet Super Dove Catalog"
+            stacApiUrl={stacApiUrl}
+            setStacApiUrl={setStacApiUrl}
+          />
+        </GridItem>
         <GridItem px={3} borderBottom="1px solid" borderColor="gray.200">
           <Filter
             collections={{collections, selectedCollections, setCollections}}
