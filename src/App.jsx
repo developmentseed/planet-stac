@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChakraProvider,
   Grid,
@@ -15,10 +15,6 @@ function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
   const [stacApi, setStacApi] = useState(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
 
-  useEffect(() => {
-    setStacApi(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
-  }, [stacApiUrl]);
-
   const { collections } = useCollections(stacApi);  
   const {
     collections: selectedCollections,
@@ -26,35 +22,20 @@ function App() {
     dateRangeFrom,
     setDateRangeFrom,
     dateRangeTo,
-    setDateRangeTo
+    setDateRangeTo,
+    nextPage,
+    previousPage,
+    results,
+    state,
+    submit
   } = useStacSearch(stacApi);
 
-  // TODO: Replace with useStacSearch
-  const nextPage = useCallback(() => {}, []);
-  const previousPage = useCallback(() => {}, []);
-  const [result, _ ] = useState({
-    features: [
-      {id: "akljsdkjsad"},
-      {id: "smdsnmwnmwn"},
-      {id: "euyuwey"},
-      {id: "pksaladasd"},
-      {id: "opixmwqmwm"},
-      {id: "sadopasdskadm"},
-      {id: "akljsdkjsad 1"},
-      {id: "smdsnmwnmwn 2"},
-      {id: "euyuwey 3"},
-      {id: "pksaladasd 4"},
-      {id: "opixmwqmwm 5"},
-      {id: "sadopasdskadm 6"},
-      {id: "akljsdkjsad 2"},
-      {id: "smdsnmwnmwn 3"},
-      {id: "euyuwey 4"},
-      {id: "pksaladasd 5"},
-      {id: "opixmwqmwm 6"},
-      {id: "sadopasdskadm 7"},
-    ]
-  });
-  const loading = true;
+  useEffect(() => {
+    setStacApi(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
+  }, [stacApiUrl]);
+
+  // Automatically submit the search for STAC items
+  useEffect(submit, [submit, selectedCollections, dateRangeFrom, dateRangeTo]);
 
   return (
     <ChakraProvider theme={theme}>
@@ -82,8 +63,8 @@ function App() {
             <ItemList
               nextPage={nextPage}
               previousPage={previousPage}
-              result={result}
-              loading={loading}
+              result={results}
+              loading={state === "LOADING"}
             />
           </GridItem>
         </Grid>
