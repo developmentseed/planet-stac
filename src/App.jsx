@@ -5,7 +5,7 @@ import {
   GridItem,
   theme,
 } from "@chakra-ui/react";
-import { StacApi, useCollections } from "@developmentseed/stac-react";
+import { StacApi, useCollections, useStacSearch } from "@developmentseed/stac-react";
 
 import { Header } from "./components/layout/Header";
 import { Filter } from "./components/layout/Filter";
@@ -19,10 +19,8 @@ function App() {
     setStacApi(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
   }, [stacApiUrl]);
 
-  const { collections } = useCollections(stacApi);
-
-  // TODO: Replace with useStacSearch
-  const [selectedCollections, setCollections] = useState([]);
+  const { collections } = useCollections(stacApi);  
+  const { collections: selectedCollections, setCollections } = useStacSearch(stacApi);
 
   // TODO: Replace with useStacSearch
   const [dateRangeFrom, setDateRangeFrom] = useState("");
@@ -67,7 +65,11 @@ function App() {
         </GridItem>
         <GridItem px={3} borderBottom="1px solid" borderColor="gray.200">
           <Filter
-            collections={{collections: collections?.collections, selectedCollections, setCollections}}
+            collections={{
+              collections: collections?.collections || [],
+              selectedCollections: selectedCollections || [],
+              setCollections
+            }}
             dateRange={{dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo}}
           />
         </GridItem>

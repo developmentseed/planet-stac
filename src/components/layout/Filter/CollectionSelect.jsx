@@ -39,13 +39,12 @@ function CollectionSelect({ collections, selectedCollections, setCollections }) 
       <fieldset>
         <PopoverHeader as="legend">Select collections</PopoverHeader>
         <PopoverBody maxHeight="300px" overflowY="scroll">
-          <CheckboxGroup>
+          <CheckboxGroup value={selectedCollections}>
             <Stack spacing="1" direction="column">
-              { collections?.map(({id, title}) => (
+              { collections.map(({id, title}) => (
                 <Checkbox
                   value={id}
                   key={id}
-                  checked={selectedCollections.includes(id)}
                   onChange={handleChange}
                 >
                   {title}
@@ -60,8 +59,8 @@ function CollectionSelect({ collections, selectedCollections, setCollections }) 
 }
 
 CollectionSelect.propTypes = {
-  collections: T.arrayOf(stac.Collection),
-  selectedCollections: T.arrayOf(T.string),
+  collections: T.arrayOf(stac.Collection).isRequired,
+  selectedCollections: T.arrayOf(T.string).isRequired,
   setCollections: T.func.isRequired,
 };
 
