@@ -22,21 +22,27 @@ function ItemList({ nextPage, previousPage, result, loading }) {
       )}
 
       {result && (
-        <>
-          <Box overflowY="auto">
-            {result.features.map(({ id }) => (
-              <Item key={id} id={id} />
-            ))}
+        result.features.length > 0 ? (
+          <>
+            <Box overflowY="auto">
+              {result.features.map(({ id }) => (
+                <Item key={id} id={id} />
+              ))}
+            </Box>
+            <Grid templateColumns="1fr 1fr" borderTop="1px solid" borderColor="gray.200">
+              <GridItem p="3" borderRight="1px solid" borderColor="gray.200">
+                <Button variant="link" disabled={!previousPage} onClick={previousPage}>← Previous Page</Button>
+              </GridItem>
+              <GridItem p="3" textAlign="right">
+                <Button variant="link" disabled={!nextPage} onClick={nextPage}>Next Page →</Button>
+              </GridItem>
+            </Grid>
+          </>
+        ) : (
+          <Box p="3">
+            <Text>No items matching your search</Text>
           </Box>
-          <Grid templateColumns="1fr 1fr" borderTop="1px solid" borderColor="gray.200">
-            <GridItem p="3" borderRight="1px solid" borderColor="gray.200">
-              <Button variant="link" disabled={!previousPage} onClick={previousPage}>← Previous Page</Button>
-            </GridItem>
-            <GridItem p="3" textAlign="right">
-              <Button variant="link" disabled={!nextPage} onClick={nextPage}>Next Page →</Button>
-            </GridItem>
-          </Grid>
-        </>
+        )
       )}
     </Grid>
   );
