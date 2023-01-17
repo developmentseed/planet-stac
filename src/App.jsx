@@ -1,25 +1,25 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ChakraProvider,
   Grid,
   GridItem,
   theme,
 } from "@chakra-ui/react";
+import { StacApi, useCollections } from "@developmentseed/stac-react";
 
 import { Header } from "./components/layout/Header";
 import { Filter } from "./components/layout/Filter";
 import { ItemList } from "./components/layout/ItemList";
 
 function App() {
-  const [stacApiUrl, setStacApiUrl] = useState("http://example.com/stac");
-  console.log(stacApiUrl);
+  const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
+  const [stacApi, setStacApi] = useState(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
 
-  // TODO: replace with useCollections
-  const collections = [
-    {id: "naruto", title: "Naruto"},
-    {id: "sasuke", title: "Sasuke"},
-    {id: "kakashi", title: "Kakashi"},
-  ];
+  useEffect(() => {
+    setStacApi(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
+  }, [stacApiUrl]);
+
+  const { collections } = useCollections(stacApi);
 
   // TODO: Replace with useStacSearch
   const [selectedCollections, setCollections] = useState([]);
@@ -67,7 +67,7 @@ function App() {
         </GridItem>
         <GridItem px={3} borderBottom="1px solid" borderColor="gray.200">
           <Filter
-            collections={{collections, selectedCollections, setCollections}}
+            collections={{collections: collections?.collections, selectedCollections, setCollections}}
             dateRange={{dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo}}
           />
         </GridItem>

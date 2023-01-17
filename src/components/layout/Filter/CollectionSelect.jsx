@@ -38,21 +38,21 @@ function CollectionSelect({ collections, selectedCollections, setCollections }) 
     <Disclosure title={getCollectionLabel(selectedCollections)}>
       <fieldset>
         <PopoverHeader as="legend">Select collections</PopoverHeader>
-        <PopoverBody>
-        <CheckboxGroup>
-          <Stack spacing="1" direction="column">
-            { collections.map(({id, title}) => (
-              <Checkbox
-                value={id}
-                key={id}
-                checked={selectedCollections.includes(id)}
-                onChange={handleChange}
-              >
-                {title}
-              </Checkbox>
-            ))}
-          </Stack>
-        </CheckboxGroup>
+        <PopoverBody maxHeight="300px" overflowY="scroll">
+          <CheckboxGroup>
+            <Stack spacing="1" direction="column">
+              { collections?.map(({id, title}) => (
+                <Checkbox
+                  value={id}
+                  key={id}
+                  checked={selectedCollections.includes(id)}
+                  onChange={handleChange}
+                >
+                  {title}
+                </Checkbox>
+              ))}
+            </Stack>
+          </CheckboxGroup>
         </PopoverBody>
       </fieldset>
     </Disclosure>
