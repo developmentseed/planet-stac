@@ -19,7 +19,7 @@ function Filter({ collections: collectionProps, dateRange: dateRangeProps }) {
   const { collections, selectedCollections, setCollections } = collectionProps;
   const { dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo } = dateRangeProps;
 
-  const handleClearCollections = useCallback(() => setCollections([]), [setCollections]);
+  const handleClearCollections = useCallback(() => setCollections(), [setCollections]);
   const handleClearDateRange = useCallback(() => {
     setDateRangeFrom("");
     setDateRangeTo("");
