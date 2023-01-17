@@ -20,11 +20,14 @@ function App() {
   }, [stacApiUrl]);
 
   const { collections } = useCollections(stacApi);  
-  const { collections: selectedCollections, setCollections } = useStacSearch(stacApi);
-
-  // TODO: Replace with useStacSearch
-  const [dateRangeFrom, setDateRangeFrom] = useState("");
-  const [dateRangeTo, setDateRangeTo] = useState("");
+  const {
+    collections: selectedCollections,
+    setCollections,
+    dateRangeFrom,
+    setDateRangeFrom,
+    dateRangeTo,
+    setDateRangeTo
+  } = useStacSearch(stacApi);
 
   // TODO: Replace with useStacSearch
   const nextPage = useCallback(() => {}, []);
