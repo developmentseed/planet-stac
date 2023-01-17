@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   ChakraProvider,
   Grid,
@@ -13,7 +13,7 @@ import { ItemList } from "./components/layout/ItemList";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
-  const [stacApi, setStacApi] = useState(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
+  const stacApi = useMemo(() => new StacApi(stacApiUrl), [stacApiUrl]);
 
   const { collections } = useCollections(stacApi);  
   const {
@@ -29,10 +29,6 @@ function App() {
     state,
     submit
   } = useStacSearch(stacApi);
-
-  useEffect(() => {
-    setStacApi(new StacApi("https://planetarycomputer.microsoft.com/api/stac/v1"));
-  }, [stacApiUrl]);
 
   // Automatically submit the search for STAC items
   useEffect(submit, [submit, selectedCollections, dateRangeFrom, dateRangeTo]);
