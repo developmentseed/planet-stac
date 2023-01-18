@@ -10,6 +10,8 @@ import { StacApi, useCollections, useStacSearch } from "@developmentseed/stac-re
 import { Header } from "./components/layout/Header";
 import { Filter } from "./components/layout/Filter";
 import { ItemList } from "./components/layout/ItemList";
+import { Map, Source, Layer } from "./components/shared/Map";
+import { backgroundMap } from "./config";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
@@ -54,7 +56,13 @@ function App() {
           />
         </GridItem>
         <Grid templateColumns="1fr 400px">
-          <GridItem>Map</GridItem>
+          <GridItem position="relative">
+            <Map>
+              <Source id="background" config={backgroundMap}>
+                <Layer id="background-tiles" />
+              </Source>
+            </Map>
+          </GridItem>
           <GridItem borderLeft="2px solid" borderColor="gray.200" position="relative">
             <ItemList
               nextPage={nextPage}
