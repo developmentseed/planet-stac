@@ -22,8 +22,7 @@ function Source({ map, id, config, children }) {
         React.Children.map(children, (child) =>
           React.cloneElement(child, {
             map: map,
-            source: id,
-            type: config.type
+            source: id
           })
         )}
     </>

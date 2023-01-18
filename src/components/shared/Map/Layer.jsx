@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import T from "prop-types";
 
-function Layer({ id, map, source, type }) {
+function Layer({ id, map, source, type, layout, paint}) {
   const [mapLayer, setMapLayer] = useState();
 
   useEffect(() => {
@@ -11,6 +11,8 @@ function Layer({ id, map, source, type }) {
       id,
       type,
       source,
+      layout,
+      paint
     };
     const l = map.addLayer(config);
     setMapLayer(l);
@@ -27,9 +29,16 @@ function Layer({ id, map, source, type }) {
 
 Layer.propTypes = {
   id: T.string.isRequired,
+  type: T.string.isRequired,
+  layout: T.object,
+  paint: T.object,
   source: T.string,
-  type: T.string,
   map: T.object,
+};
+
+Layer.defaultProps = {
+  layout: {},
+  paint: {}
 };
 
 export default Layer;
