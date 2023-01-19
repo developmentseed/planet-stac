@@ -25,10 +25,12 @@ function ItemList({ nextPage, previousPage, result, loading, setHighlightItem, h
         result.features.length > 0 ? (
           <>
             <Box overflowY="auto">
-              {result.features.map(({ id }) => (
+              {result.features.map(({ id, collection, assets }) => (
                 <Item
                   key={id}
                   id={id}
+                  collection={collection}
+                  numberAssets={Object.keys(assets).length}
                   onMouseOver={() => setHighlightItem(id)}
                   onMouseOut={() => setHighlightItem()}
                   highlighted={id === highlightItem}

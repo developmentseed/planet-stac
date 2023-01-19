@@ -3,7 +3,7 @@ import T from "prop-types";
 
 import { Box, Text } from "@chakra-ui/react";
 
-function Item({ id, onMouseOver, onMouseOut, highlighted }) {
+function Item({ id, collection, numberAssets, onMouseOver, onMouseOut, highlighted }) {
   return (
     <Box
       borderTop="1px solid"
@@ -17,7 +17,9 @@ function Item({ id, onMouseOver, onMouseOut, highlighted }) {
         cursor: "pointer"
       }}
     >
-      <Text>{id}</Text>
+      <Text fontWeight="bold">{id}</Text>
+      <Text>Collection: {collection}</Text>
+      <Text>{numberAssets} assets</Text>
     </Box>
   );
 }
@@ -26,7 +28,9 @@ Item.propTypes = {
   id: T.string.isRequired,
   onMouseOver: T.func.isRequired,
   onMouseOut: T.func.isRequired,
-  highlighted: T.bool
+  highlighted: T.bool,
+  collection: T.string.isRequired,
+  numberAssets: T.number.isRequired,
 };
 
 export { Item };

@@ -5,6 +5,10 @@ export const Collection = T.shape({
   title: T.string.isRequired
 });
 
+export const Asset = T.shape({});
+
 export const Item = T.shape({
   id: T.string.isRequired,
+  collection: T.string.isRequired,
+  assets: Asset.isRequired,
 });
