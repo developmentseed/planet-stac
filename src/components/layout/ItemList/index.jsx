@@ -5,7 +5,7 @@ import { Grid, Box, Text, Spinner, Button, GridItem } from "@chakra-ui/react";
 import { Item } from "./Item";
 import { stac } from "../../../types";
 
-function ItemList({ nextPage, previousPage, result, loading }) {
+function ItemList({ nextPage, previousPage, result, loading, setHighlightItem, highlightItem }) {
   return (
     <Grid templateRows="max-content 1fr" position="absolute" top="0" left="0" right="0" bottom="0">
       <Text p="3" fontSize="l" fontWeight="bold" as="h2">Item List</Text>
@@ -26,7 +26,13 @@ function ItemList({ nextPage, previousPage, result, loading }) {
           <>
             <Box overflowY="auto">
               {result.features.map(({ id }) => (
-                <Item key={id} id={id} />
+                <Item
+                  key={id}
+                  id={id}
+                  onMouseOver={() => setHighlightItem(id)}
+                  onMouseOut={() => setHighlightItem()}
+                  highlighted={id === highlightItem}
+                />
               ))}
             </Box>
             <Grid templateColumns="1fr 1fr" borderTop="1px solid" borderColor="gray.200">
@@ -55,6 +61,8 @@ ItemList.propTypes = {
     features: T.arrayOf(stac.Item).isRequired
   }),
   loading: T.bool,
+  setHighlightItem: T.func.isRequired,
+  highlightItem: T.string
 };
 
 export { ItemList };

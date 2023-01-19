@@ -6,7 +6,7 @@ function Source({ map, id, config, children }) {
 
   useEffect(() => {
     if (map.getSource(id)) return;
-    const s = map.addSource(id, config);
+    const s = map.addSource(id, {...config, promoteId: "id"});
     setMapSource(s);
 
     return () => {
@@ -14,6 +14,15 @@ function Source({ map, id, config, children }) {
       if (config) map.removeSource(id);
     };
   }, []);
+
+  useEffect(() => {
+    const s = map.getSource(id);
+    if (!s) return;
+
+    if (config.data) {
+      s.setData(config.data);
+    }
+  }, [config.data, id, map]);
 
   return (
     <>

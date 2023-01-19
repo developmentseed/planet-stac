@@ -14,6 +14,7 @@ import { Map } from "./components/layout/Map";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
+  const [ highlightItem, setHighlightItem ] = useState();
   const stacApi = useMemo(() => new StacApi(stacApiUrl), [stacApiUrl]);
 
   const { collections } = useCollections(stacApi);  
@@ -56,7 +57,11 @@ function App() {
         </GridItem>
         <Grid templateColumns="1fr 400px">
           <GridItem position="relative">
-            <Map results={results} />
+            <Map
+              results={results}
+              highlightItem={highlightItem}
+              setHighlightItem={setHighlightItem}
+            />
           </GridItem>
           <GridItem borderLeft="2px solid" borderColor="gray.200" position="relative">
             <ItemList
@@ -64,6 +69,8 @@ function App() {
               previousPage={previousPage}
               result={results}
               loading={state === "LOADING"}
+              highlightItem={highlightItem}
+              setHighlightItem={setHighlightItem}
             />
           </GridItem>
         </Grid>

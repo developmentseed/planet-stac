@@ -9,7 +9,12 @@ export const backgroundMapConfig = {
 
 export const itemsLayerFill = {
   "fill-color": "#0080ff",
-  "fill-opacity": 0.25,
+  "fill-opacity": [
+    "case",
+    ["boolean", ["feature-state", "hover"], false],
+    0.5,
+    0.25
+  ]
 };
 
 export const itemsLayerOutline = {
