@@ -15,15 +15,17 @@ import { CollectionSelect } from "./CollectionSelect";
 
 import { stac } from "../../../types";
 
-function Filter({ collections: collectionProps, dateRange: dateRangeProps }) {
+function Filter({ collections: collectionProps, dateRange: dateRangeProps, bbox: bboxProps }) {
   const { collections, selectedCollections, setCollections } = collectionProps;
   const { dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo } = dateRangeProps;
+  const { setIsBboxDrawEnabled, bbox, setBbox } = bboxProps;
 
   const handleClearCollections = useCallback(() => setCollections(), [setCollections]);
   const handleClearDateRange = useCallback(() => {
     setDateRangeFrom("");
     setDateRangeTo("");
   }, [setDateRangeFrom, setDateRangeTo]);
+  const handleClearBbox = useCallback(() => setBbox(), [setBbox]);
 
   return (
     <Stack direction="row" alignItems="center" h="30px" gap="3">
@@ -68,7 +70,23 @@ function Filter({ collections: collectionProps, dateRange: dateRangeProps }) {
       </Box>
       <Divider orientation="vertical" />
       <Box>
-        <Button variant="link">Select area</Button>
+        <Button
+          variant="link"
+          onClick={() => setIsBboxDrawEnabled(true)}
+        >
+          {bbox ? "Area selected" : "Select area"}
+        </Button>
+        {bbox && (
+          <IconButton
+            w="3"
+            minWidth="3"
+            ml="3"
+            aria-label="Clear selected area"
+            variant="link"
+            icon={<DeleteIcon boxSize={3} />}
+            onClick={handleClearBbox}
+          />
+        )}
       </Box>
     </Stack>
   );
@@ -85,6 +103,11 @@ Filter.propTypes = {
     setDateRangeFrom: T.func.isRequired,
     dateRangeTo: T.string.isRequired,
     setDateRangeTo: T.func.isRequired
+  }).isRequired,
+  bbox: T.shape({
+    setIsBboxDrawEnabled: T.func.isRequired,
+    bbox: T.arrayOf(T.number),
+    setBbox: T.func.isRequired,
   }).isRequired
 };
 

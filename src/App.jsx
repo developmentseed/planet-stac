@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ChakraProvider,
   Grid,
@@ -14,11 +14,14 @@ import { Map } from "./components/layout/Map";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
+  const [isBboxDrawEnabled, setIsBboxDrawEnabled] = useState(false);
   const [ highlightItem, setHighlightItem ] = useState();
   const stacApi = useMemo(() => new StacApi(stacApiUrl), [stacApiUrl]);
 
   const { collections } = useCollections(stacApi);  
   const {
+    bbox,
+    setBbox,
     collections: selectedCollections,
     setCollections,
     dateRangeFrom,
@@ -31,6 +34,11 @@ function App() {
     state,
     submit
   } = useStacSearch(stacApi);
+
+  const handleBboxDrawComplete = useCallback((geom) => {
+    setBbox(geom);
+    setIsBboxDrawEnabled(false);
+  }, [setBbox, setIsBboxDrawEnabled]);
 
   // Automatically submit the search for STAC items
   useEffect(submit, [submit, selectedCollections, dateRangeFrom, dateRangeTo]);
@@ -53,6 +61,7 @@ function App() {
               setCollections
             }}
             dateRange={{dateRangeFrom, setDateRangeFrom, dateRangeTo, setDateRangeTo}}
+            bbox={{ setIsBboxDrawEnabled, bbox, setBbox }}
           />
         </GridItem>
         <Grid templateColumns="1fr 400px">
@@ -61,6 +70,9 @@ function App() {
               results={results}
               highlightItem={highlightItem}
               setHighlightItem={setHighlightItem}
+              isBboxDrawEnabled={isBboxDrawEnabled}
+              setBbox={handleBboxDrawComplete}
+              bbox={bbox}
             />
           </GridItem>
           <GridItem borderLeft="2px solid" borderColor="gray.200" position="relative">

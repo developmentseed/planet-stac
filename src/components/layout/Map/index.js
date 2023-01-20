@@ -8,6 +8,7 @@ import {
   itemsLayerFill,
   itemsLayerOutline,
 } from "./config";
+import { DrawBbox } from "../../shared/Map/Control/DrawBbox";
 
 // MapLibre doesn't preserve IDs so we're adding the ID
 // to the properties so we can identify the items for user interactions.
@@ -23,7 +24,7 @@ const addIdToProperties = (feature) => {
   };
 };
 
-function Map({ results, highlightItem, setHighlightItem }) {
+function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setBbox, bbox }) {
   const items = useMemo(() => {
     if (!results) return results;
     return {
@@ -56,6 +57,7 @@ function Map({ results, highlightItem, setHighlightItem }) {
           <Layer id="items-layer-outline" type="line" paint={itemsLayerOutline} />
         </Source>
       )}
+      <DrawBbox isEnabled={isBboxDrawEnabled} handleDrawComplete={setBbox} bbox={bbox} />
     </GenericMap>
   );
 }
@@ -65,7 +67,10 @@ Map.propTypes = {
     features: T.arrayOf(stac.Item).isRequired
   }),
   highlightItem: T.string,
-  setHighlightItem: T.func.isRequired
+  setHighlightItem: T.func.isRequired,
+  isBboxDrawEnabled: T.bool,
+  setBbox: T.func.isRequired,
+  bbox: T.arrayOf(T.number)
 };
 
 export { Map };
