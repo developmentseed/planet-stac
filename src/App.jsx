@@ -10,14 +10,16 @@ import { StacApi, useCollections, useStacSearch } from "@developmentseed/stac-re
 import { Header } from "./components/layout/Header";
 import { Filter } from "./components/layout/Filter";
 import { ItemList } from "./components/layout/ItemList";
+import { ItemView } from "./components/layout/ItemView";
 import { Map } from "./components/layout/Map";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
   const [isBboxDrawEnabled, setIsBboxDrawEnabled] = useState(false);
   const [ highlightItem, setHighlightItem ] = useState();
+  const [ selectedItemId, setSelectedItemId ] = useState();
+  
   const stacApi = useMemo(() => new StacApi(stacApiUrl), [stacApiUrl]);
-
   const { collections } = useCollections(stacApi);  
   const {
     bbox,
@@ -34,6 +36,12 @@ function App() {
     state,
     submit
   } = useStacSearch(stacApi);
+
+  const selectedItem = useMemo(() => {
+    if (!selectedItemId || !results) return;
+
+    return results.features.find(({ id }) => id === selectedItemId);
+  }, [selectedItemId, results]);
 
   const handleBboxDrawComplete = useCallback((geom) => {
     setBbox(geom);
@@ -64,7 +72,7 @@ function App() {
             bbox={{ setIsBboxDrawEnabled, bbox, setBbox }}
           />
         </GridItem>
-        <Grid templateColumns="1fr 400px">
+        <Grid templateColumns="1fr 400px" position="relative">
           <GridItem position="relative">
             <Map
               results={results}
@@ -83,7 +91,9 @@ function App() {
               loading={state === "LOADING"}
               highlightItem={highlightItem}
               setHighlightItem={setHighlightItem}
+              setSelectedItem={setSelectedItemId}
             />
+            <ItemView selectedItem={selectedItem} setSelectedItem={setSelectedItemId} />
           </GridItem>
         </Grid>
       </Grid>

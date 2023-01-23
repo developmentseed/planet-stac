@@ -2,8 +2,11 @@ import React from "react";
 import T from "prop-types";
 
 import { Box, Text } from "@chakra-ui/react";
+import { useCallback } from "react";
 
-function Item({ id, collection, numberAssets, onMouseOver, onMouseOut, highlighted }) {
+function Item({ id, collection, numberAssets, onMouseOver, onMouseOut, highlighted, selectItem }) {
+  const handleOnClick = useCallback(() => selectItem(id), [id, selectItem]);
+
   return (
     <Box
       borderTop="1px solid"
@@ -12,10 +15,8 @@ function Item({ id, collection, numberAssets, onMouseOver, onMouseOut, highlight
       p="3"
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      _hover={{
-        backgroundColor: "gray.200",
-        cursor: "pointer"
-      }}
+      onClick={handleOnClick}
+      _hover={{ cursor: "pointer" }}
     >
       <Text fontWeight="bold">{id}</Text>
       <Text>Collection: {collection}</Text>
@@ -31,6 +32,7 @@ Item.propTypes = {
   highlighted: T.bool,
   collection: T.string.isRequired,
   numberAssets: T.number.isRequired,
+  selectItem: T.func.isRequired,
 };
 
 export { Item };
