@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: ${{ env.NODE }}
       
+      - name: Install
+        run: yarn install
+      
       - name: Build and Deploy
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
