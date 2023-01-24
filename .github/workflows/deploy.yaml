@@ -1,0 +1,35 @@
+name: Deploy production website to GitHug Pages
+
+on:
+  push:
+    branches:
+    - 'main'
+
+env:
+  NODE: 18
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+    
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node ${{ env.NODE }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE }}
+      
+      - name: Build and Deploy
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          yarn deploy -- -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
