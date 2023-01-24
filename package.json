@@ -2,6 +2,7 @@
   "name": "planet-stac",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://developmentseed.github.io/planet-stac",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.16",
     "@chakra-ui/react": "^2.4.8",
@@ -27,11 +28,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.js' 'src/**/*.jsx'"
+    "lint": "eslint 'src/**/*.js' 'src/**/*.jsx'",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
@@ -44,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "craco": "^0.0.3",
+    "gh-pages": "^5.0.0"
   }
 }
