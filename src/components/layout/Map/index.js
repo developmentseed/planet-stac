@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import T from "prop-types";
+import getBbox from "@turf/bbox";
 
 import { Map as GenericMap, Source, Layer } from "../../shared/Map";
 import { stac } from "../../../types";
@@ -33,8 +34,13 @@ function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setB
     };
   }, [results]);
 
+  const bounds = useMemo(() => {
+    if (!results) return;
+    return getBbox(results);
+  }, [results]);
+
   return (
-    <GenericMap>
+    <GenericMap bounds={bounds}>
       <Source id="background" config={backgroundMapConfig}>
         <Layer id="background-tiles" type="raster" />
       </Source>

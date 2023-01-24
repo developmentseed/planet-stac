@@ -3,7 +3,7 @@ import T from "prop-types";
 import maplibregl from "maplibre-gl";
 import { Box } from "@chakra-ui/react";
 
-function Map({ center, zoom, children }) {
+function Map({ center, zoom, bounds, children }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
 
@@ -16,6 +16,11 @@ function Map({ center, zoom, children }) {
       style: {version: 8,sources: {},layers: []}
     });
   });
+
+  useEffect(() => {
+    if (!map.current || !bounds) return;
+    map.current.fitBounds(bounds, { padding: 20 });
+  }, [bounds]);
 
   return (
     <Box
@@ -42,7 +47,8 @@ function Map({ center, zoom, children }) {
 Map.propTypes = {
   children: T.node,
   center: T.arrayOf(T.number),
-  zoom: T.number
+  zoom: T.number,
+  bounds: T.arrayOf(T.number),
 };
 
 Map.defaultProps = {
