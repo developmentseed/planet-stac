@@ -13,7 +13,7 @@ function Source({ map, id, config, children }) {
       React.Children.map(children, (c) => map.getLayer(c.props.id) && map.removeLayer(c.props.id));
       if (config) map.removeSource(id);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const s = map.getSource(id);

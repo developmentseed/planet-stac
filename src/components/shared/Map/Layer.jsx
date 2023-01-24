@@ -66,7 +66,7 @@ function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, 
         map.removeLayer(id);
       }
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return null;
 }
