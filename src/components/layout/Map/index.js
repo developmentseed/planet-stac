@@ -35,7 +35,7 @@ function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setB
   }, [results]);
 
   const bounds = useMemo(() => {
-    if (!results) return;
+    if (!results?.features.length) return;
     return getBbox(results);
   }, [results]);
 
