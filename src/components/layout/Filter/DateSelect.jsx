@@ -11,26 +11,22 @@ import {
 } from "@chakra-ui/react";
 
 import { Disclosure } from "../../shared/Disclosure";
+import { dateFormat } from "../../../config";
 
 function getDateRangeLabel(fromDate, toDate) {
   let fromLabel;
   let toLabel;
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
 
   if (!(fromDate || toDate)) {
     return "Select date range";
   }
 
   if (fromDate) {
-    fromLabel = new Date(fromDate).toLocaleString("en-US", options);
+    fromLabel = new Date(fromDate).toLocaleString("en-US", dateFormat);
   }
 
   if (toDate) {
-    toLabel = new Date(toDate).toLocaleString("en-US", options);
+    toLabel = new Date(toDate).toLocaleString("en-US", dateFormat);
   }
 
   return `${fromLabel ? `From: ${fromLabel}` : ""} ${toLabel ? `To: ${toLabel}` : ""}`.trim();
