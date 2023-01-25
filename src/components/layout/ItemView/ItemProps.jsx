@@ -38,7 +38,6 @@ function ItemProps({ itemProperties }) {
 
   return (
     <>
-      <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
       <Table variant="striped" size="sm">
         <Tbody>
           {Object.entries(itemProperties).map(([ key, val ]) => (

@@ -25,21 +25,22 @@ function ItemView({ selectedItem, setSelectedItem }) {
       </Flex>
       {description && <Text paddingX="3">{description}</Text>}
 
+      <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
       <ItemProps itemProperties={restProps} />
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Assets</Text>
-      {Object.values(selectedItem.assets).map(({ title, description, type, href }) => (
+      {Object.values(selectedItem.assets).map(({ title, description, href, ...assetProps }) => (
         <Box key={href} borderTop="1px solid" borderColor="gray.200" p="3">
           {title && <Text fontWeight="bold">{title}</Text>}
           {description && <Text>{description}</Text>}
-          <Flex>
-            <Text as="b">Type:&nbsp;</Text>
-            <Text>{type}</Text>
-          </Flex>
+
+          <ItemProps itemProperties={assetProps} />
+
           {href && (
             <Button
               size="xs"
               onClick={() => navigator.clipboard.writeText(href)}
+              mt="3"
             >
               Copy item URL to clipbord
             </Button>
