@@ -19,7 +19,7 @@ function toDisplayValue(value) {
   if (Array.isArray(value)) {
     return (
       <ul>
-        {value.map(val => (<li key={val}>{val}</li>))}
+        {value.map(val => (<li key={val}>{toDisplayValue(val)}</li>))}
       </ul>
     );
   }
@@ -41,7 +41,7 @@ function PropsTable({ itemProperties }) {
         <Tbody>
           {Object.entries(itemProperties).map(([ key, val ]) => (
             <Tr key={key}>
-              <Td>{key}</Td>
+              <Td verticalAlign="top">{key}</Td>
               <Td>{toDisplayValue(val)}</Td>
             </Tr>
           ))}

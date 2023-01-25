@@ -18,7 +18,7 @@ function ItemView({ selectedItem, setSelectedItem }) {
   const { title, description, ...restProps } = selectedItem.properties;
 
   return (
-    <Box position="absolute" top="0" right="400px" bottom="0" width="400px" backgroundColor="white" overflowY="auto">
+    <Box position="absolute" top="0" right="400px" bottom="0" width="600px" backgroundColor="white" overflowY="auto">
       <Flex alignItems="baseline" width="100%" gap="3">
         <Text as="h2" fontSize="xl" fontWeight="bold" p="3" overflow="hidden">{title || selectedItem.id}</Text>
         <CloseButton onClick={handleClose} marginLeft="auto" />
@@ -42,7 +42,7 @@ function ItemView({ selectedItem, setSelectedItem }) {
               onClick={() => navigator.clipboard.writeText(href)}
               mt="3"
             >
-              Copy item URL to clipbord
+              Copy asset URL to clipbord
             </Button>
           )}
         </Box>
