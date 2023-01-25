@@ -2,7 +2,6 @@ import React from "react";
 import T from "prop-types";
 
 import {
-  Text,
   Table,
   Tbody,
   Tr,
@@ -32,7 +31,7 @@ function toDisplayValue(value) {
   return value;
 }
 
-function ItemProps({ itemProperties }) {
+function PropsTable({ itemProperties }) {
   const entries = Object.entries(itemProperties);
   if (entries.length === 0) return null;
 
@@ -52,8 +51,8 @@ function ItemProps({ itemProperties }) {
   );
 }
 
-ItemProps.propTypes = {
+PropsTable.propTypes = {
   itemProperties: T.object.isRequired
 };
 
-export { ItemProps };
+export { PropsTable };

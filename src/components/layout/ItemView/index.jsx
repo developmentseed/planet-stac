@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { stac } from "../../../types";
-import { ItemProps } from "./ItemProps";
+import { PropsTable } from "./PropsTable";
 
 function ItemView({ selectedItem, setSelectedItem }) {
   const handleClose = useCallback(() => setSelectedItem(), [setSelectedItem]);
@@ -26,7 +26,7 @@ function ItemView({ selectedItem, setSelectedItem }) {
       {description && <Text paddingX="3">{description}</Text>}
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
-      <ItemProps itemProperties={restProps} />
+      <PropsTable itemProperties={restProps} />
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Assets</Text>
       {Object.values(selectedItem.assets).map(({ title, description, href, ...assetProps }) => (
@@ -34,7 +34,7 @@ function ItemView({ selectedItem, setSelectedItem }) {
           {title && <Text fontWeight="bold">{title}</Text>}
           {description && <Text>{description}</Text>}
 
-          <ItemProps itemProperties={assetProps} />
+          <PropsTable itemProperties={assetProps} />
 
           {href && (
             <Button
