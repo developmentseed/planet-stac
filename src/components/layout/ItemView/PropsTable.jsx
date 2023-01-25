@@ -6,6 +6,8 @@ import {
   Tbody,
   Tr,
   Td,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import { dateFormat } from "../../../config";
 
@@ -18,9 +20,9 @@ function toDisplayValue(value) {
 
   if (Array.isArray(value)) {
     return (
-      <ul>
-        {value.map(val => (<li key={val}>{toDisplayValue(val)}</li>))}
-      </ul>
+      <UnorderedList>
+        {value.map(val => (<ListItem key={val}>{toDisplayValue(val)}</ListItem>))}
+      </UnorderedList>
     );
   }
 
@@ -37,7 +39,7 @@ function PropsTable({ itemProperties }) {
 
   return (
     <>
-      <Table variant="striped" size="sm">
+      <Table variant="striped" size="sm" my="5">
         <Tbody>
           {Object.entries(itemProperties).map(([ key, val ]) => (
             <Tr key={key}>
