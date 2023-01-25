@@ -8,7 +8,7 @@ export const Collection = T.shape({
 export const Asset = T.shape({
   title: T.string,
   description: T.string,
-  href: T.string.isRequired,
+  href: T.string,
   type: T.string.isRequired
 });
 

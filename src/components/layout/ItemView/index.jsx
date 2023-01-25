@@ -4,9 +4,9 @@ import T from "prop-types";
 import {
   Text,
   Box,
-  Link,
   Flex,
   CloseButton,
+  Button,
 } from "@chakra-ui/react";
 import { stac } from "../../../types";
 import { ItemProps } from "./ItemProps";
@@ -36,7 +36,14 @@ function ItemView({ selectedItem, setSelectedItem }) {
             <Text as="b">Type:&nbsp;</Text>
             <Text>{type}</Text>
           </Flex>
-          <Link href={href} target="_blank">Download</Link>
+          {href && (
+            <Button
+              size="xs"
+              onClick={() => navigator.clipboard.writeText(href)}
+            >
+              Copy item URL to clipbord
+            </Button>
+          )}
         </Box>
       ))}
     </Box>
