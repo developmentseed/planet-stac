@@ -1,3 +1,8 @@
+# Planet-STAC
+
+An a small application demonstrating capabilities of [stac-react](https://github.com/developmentseed/stac-react). See [devseed.com/planet-stac/](https://devseed.com/planet-stac/).
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
