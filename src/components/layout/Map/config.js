@@ -4,7 +4,7 @@ export const backgroundMapConfig = {
     "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
   ],
   tileSize: 256,
-  attribution: "OSM"
+  attribution: "Background tiles: © <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
 };
 
 export const itemsLayerFill = {

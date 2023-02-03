@@ -3,6 +3,8 @@ import T from "prop-types";
 import maplibregl from "maplibre-gl";
 import { Box } from "@chakra-ui/react";
 
+import "maplibre-gl/dist/maplibre-gl.css";
+
 function Map({ center, zoom, bounds, children }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
