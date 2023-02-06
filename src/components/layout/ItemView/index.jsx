@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { stac } from "../../../types";
 import { PropsTable } from "./PropsTable";
+import { PreviewImage } from "./PreviewImage";
 
 function ItemView({ selectedItem, setSelectedItem }) {
   const handleClose = useCallback(() => setSelectedItem(), [setSelectedItem]);
@@ -24,6 +25,8 @@ function ItemView({ selectedItem, setSelectedItem }) {
         <CloseButton onClick={handleClose} marginLeft="auto" />
       </Flex>
       {description && <Text paddingX="3">{description}</Text>}
+
+      <PreviewImage assets={selectedItem.assets} />
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
       <PropsTable itemProperties={restProps} />
