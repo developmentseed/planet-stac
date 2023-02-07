@@ -49,7 +49,14 @@ function App() {
   }, [setBbox, setIsBboxDrawEnabled]);
 
   // Automatically submit the search for STAC items
-  useEffect(submit, [submit, selectedCollections, dateRangeFrom, dateRangeTo]);
+  useEffect(
+    () => {
+      if (selectedCollections || dateRangeFrom || dateRangeTo) {
+        submit();
+      }
+    },
+    [submit, selectedCollections, dateRangeFrom, dateRangeTo]
+  );
 
   return (
     <ChakraProvider theme={theme}>
