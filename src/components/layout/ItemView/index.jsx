@@ -10,7 +10,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { stac } from "../../../types";
-import { PropsTable } from "./PropsTable";
 import { PreviewImage } from "./PreviewImage";
 import { PropertiesView } from "./PropertiesView";
 
