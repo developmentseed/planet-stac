@@ -34,13 +34,12 @@ function ItemView({ selectedItem, setSelectedItem }) {
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
       <PropertiesView properties={formattedProps} />
 
-      <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Assets</Text>
+      <Text as="h3" fontWeight="bold" fontSize="lg" p="3" mt="5">Assets</Text>
       {Object.values(selectedItem.assets).map(({ title, description, href, ...assetProps }) => (
-        <Box key={href} borderTop="1px solid" borderColor="gray.200" p="3">
+        <Box key={href} borderTop="1px solid" borderColor="gray.200" px="3" py="7">
           {title && <Text fontWeight="bold">{title}</Text>}
           {description && <Text>{description}</Text>}
-
-          <PropsTable itemProperties={assetProps} />
+          <PropertiesView properties={StacFields.formatItemProperties({ properties: assetProps })} />
 
           {href && (
             <Button

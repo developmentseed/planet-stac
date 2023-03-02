@@ -20,7 +20,7 @@ function PropertiesTable({ properties }) {
   return (
     <>
       {label && <Text as="h4" fontWeight="bold" fontSize="md" px="3" mt="5" mb="3">{label}</Text>}
-      <Table variant="striped" size="sm">
+      <Table variant="striped" size="sm" mt="3">
         <Tbody>
           {Object.entries(props).map(([ key, val ]) => (
             <Tr key={key}>
