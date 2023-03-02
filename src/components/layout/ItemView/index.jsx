@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import T from "prop-types";
+import StacFields from "@radiantearth/stac-fields";
 
 import {
   Text,
@@ -11,12 +12,14 @@ import {
 import { stac } from "../../../types";
 import { PropsTable } from "./PropsTable";
 import { PreviewImage } from "./PreviewImage";
+import { PropertiesView } from "./PropertiesView";
 
 function ItemView({ selectedItem, setSelectedItem }) {
   const handleClose = useCallback(() => setSelectedItem(), [setSelectedItem]);
   
   if (!selectedItem) return null;
   const { title, description, ...restProps } = selectedItem.properties;
+  const formattedProps = StacFields.formatItemProperties({properties: restProps});
 
   return (
     <Box position="absolute" top="0" right="400px" bottom="0" width="600px" backgroundColor="white" overflowY="auto">
@@ -29,7 +32,7 @@ function ItemView({ selectedItem, setSelectedItem }) {
       <PreviewImage assets={selectedItem.assets} />
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Properties</Text>
-      <PropsTable itemProperties={restProps} />
+      <PropertiesView properties={formattedProps} />
 
       <Text as="h3" fontWeight="bold" fontSize="lg" p="3">Assets</Text>
       {Object.values(selectedItem.assets).map(({ title, description, href, ...assetProps }) => (
