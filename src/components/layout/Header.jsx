@@ -27,35 +27,69 @@ function isStacSearchApi(meta) {
   }
 }
 
-function Header({ stacApiUrl, setStacApiUrl }) {
+function Header({ stacApiUrl, setStacApiUrl, authToken, setAuthtoken }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 
   const [ title, setTitle ] = useState();
   const [ url, setUrl ] = useState(stacApiUrl);
   const [ urlError, setUrlError ] = useState();
+  const [ token, setToken ] = useState(authToken);
+  const [ tokenError, setTokenError ] = useState();
+  const [ requireAuth, setRequireAuth ] = useState(false);
 
-  const handleUrlChange = useCallback((e) => setUrl(e.target.value), [setUrl]);
+  const handleUrlChange = useCallback((e) => {
+    setUrl(e.target.value);
+    setToken();
+    setRequireAuth(false);
+  }, [setUrl]);
+  const handleTokenChange = useCallback((e) => setToken(e.target.value), [setToken]);
 
-  const handleSubmit = useCallback(() => {
+  const isValid = useCallback(() => {
+    setUrlError();
+    setTokenError();
+
     if (!url) {
       setUrlError("Enter a URL to a STAC catalog.");
-    } else {
-      fetch(url)
-        .then(r => r.json())
-        .then(r => {
-          const error = isStacSearchApi(r);
+    }
+
+    if (!(!requireAuth || token)) {
+      setTokenError("Enter your authentication token for this API.");
+    }
+    return !(!url && (!requireAuth || token));
+  }, [requireAuth, token, url]);
+
+  const handleSubmit = useCallback(() => {
+    if (isValid()) {
+      const headers = new Headers();
+      if (token) {
+        headers.append("Authorization", "Basic " + btoa(token + ":"));
+      }
+
+      fetch(url, { headers })
+        .then(async r => {
+          if (r.status === 401) {
+            setRequireAuth(true);
+            return;
+          } else {
+            !token && setRequireAuth(false);
+          }
+
+          const responseJson = await r.json();
+          const error = isStacSearchApi(responseJson);
           if (error) {
             setUrlError(error);
           } else {
-            setTitle(r.title || r.id);
+            const { title, id } = responseJson;
+            setTitle(title || id);
             setStacApiUrl(url);
+            setAuthtoken(token);
             onClose();
           }
         })
         .catch(() => setUrlError("Unable to open this STAC catalog"));
     }
-  }, [onClose, setStacApiUrl, url]);
+  }, [onClose, setStacApiUrl, url, token, setAuthtoken, isValid]);
 
   const handleCancel = useCallback(() => {
     setUrl(stacApiUrl);
@@ -98,6 +132,16 @@ function Header({ stacApiUrl, setStacApiUrl }) {
                     <FormErrorMessage>{urlError}</FormErrorMessage>
                   )}
                 </FormControl>
+
+                {requireAuth && (
+                  <FormControl isRequired isInvalid={tokenError} mt="5">
+                    <FormLabel>Enter auth token</FormLabel>
+                    <Input value={token || ""} onChange={handleTokenChange} />
+                    {tokenError && (
+                      <FormErrorMessage>{tokenError}</FormErrorMessage>
+                    )}
+                  </FormControl>
+                )}
               </form>
             </AlertDialogBody>
 
@@ -119,6 +163,8 @@ function Header({ stacApiUrl, setStacApiUrl }) {
 Header.propTypes = {
   stacApiUrl: T.string,
   setStacApiUrl: T.func.isRequired,
+  authToken: T.string,
+  setAuthtoken: T.func.isRequired,
 };
 
 export {Header};

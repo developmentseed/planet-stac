@@ -15,11 +15,16 @@ import { Map } from "./components/layout/Map";
 
 function App() {
   const [stacApiUrl, setStacApiUrl] = useState(process.env.REACT_APP_DEFAULT_STAC_API);
+  const [authToken, setAuthtoken] = useState();
   const [isBboxDrawEnabled, setIsBboxDrawEnabled] = useState(false);
   const [ highlightItem, setHighlightItem ] = useState();
   const [ selectedItemId, setSelectedItemId ] = useState();
+
+  const headers = useMemo(() => ({
+    Authorization: authToken && "Basic " + btoa(authToken + ":")
+  }), [authToken]);
   
-  const stacApi = useMemo(() => new StacApi(stacApiUrl), [stacApiUrl]);
+  const stacApi = useMemo(() => new StacApi(stacApiUrl, { headers }), [stacApiUrl, headers]);
   const { collections } = useCollections(stacApi);  
   const {
     bbox,
@@ -66,6 +71,8 @@ function App() {
             title="Planet Super Dove Catalog"
             stacApiUrl={stacApiUrl}
             setStacApiUrl={setStacApiUrl}
+            authToken={authToken}
+            setAuthtoken={setAuthtoken}
           />
         </GridItem>
         <GridItem px={3} borderBottom="1px solid" borderColor="gray.200">
