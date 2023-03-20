@@ -45,7 +45,7 @@ function App() {
   const selectedItem = useMemo(() => {
     if (!selectedItemId || !results) return;
 
-    return results.features.find(({ id }) => id === selectedItemId);
+    return results.features?.find(({ id }) => id === selectedItemId);
   }, [selectedItemId, results]);
 
   const handleBboxDrawComplete = useCallback((geom) => {

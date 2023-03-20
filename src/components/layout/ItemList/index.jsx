@@ -22,7 +22,7 @@ function ItemList({ nextPage, previousPage, result, loading, setHighlightItem, h
       )}
 
       {result && (
-        result.features.length > 0 ? (
+        result.features?.length > 0 ? (
           <>
             <Box overflowY="auto">
               {result.features.map(({ id, collection, assets }) => (

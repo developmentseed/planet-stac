@@ -27,7 +27,7 @@ const addIdToProperties = (feature) => {
 
 function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setBbox, bbox }) {
   const items = useMemo(() => {
-    if (!results) return results;
+    if (!results?.features) return null;
     return {
       ...results,
       features: results.features.map(addIdToProperties)
@@ -35,7 +35,7 @@ function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setB
   }, [results]);
 
   const bounds = useMemo(() => {
-    if (!results?.features.length) return;
+    if (!results?.features?.length) return;
     return getBbox(results);
   }, [results]);
 
