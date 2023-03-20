@@ -2000,10 +2000,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz#1bfafe4b7ed0f3e4105837e056e0a89b108ebe36"
   integrity sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==
 
-"@developmentseed/stac-react@^0.1.0-alpha.4":
-  version "0.1.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/@developmentseed/stac-react/-/stac-react-0.1.0-alpha.4.tgz#e582570491ac4eb4b3ac04b7338ee693ebf378d9"
-  integrity sha512-NziJg3k3+vd8K8ule7FTNaC2aywMKQwbjemAqbgTYcuUE1sACl8fownT9Nn6UZctJIW5wjbbNoSD4FTgBnQuBQ==
+"@developmentseed/stac-react@^0.1.0-alpha.5":
+  version "0.1.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@developmentseed/stac-react/-/stac-react-0.1.0-alpha.5.tgz#17a1c045adee17697054a2e41c6dde9227b3bed8"
+  integrity sha512-uZe0RteFu1Ccq9zKAuBLPHC7uvn33tgVhEXP+xCy+v5XyphlQhoY8I6+0c+zhpbsIBK3QHJNlqippcj6H5RYEg==
 
 "@emotion/babel-plugin@^11.10.5":
   version "11.10.5"
