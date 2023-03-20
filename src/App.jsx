@@ -56,11 +56,11 @@ function App() {
   // Automatically submit the search for STAC items
   useEffect(
     () => {
-      if (selectedCollections || dateRangeFrom || dateRangeTo) {
+      if (selectedCollections || dateRangeFrom || dateRangeTo || bbox) {
         submit();
       }
     },
-    [submit, selectedCollections, dateRangeFrom, dateRangeTo]
+    [submit, selectedCollections, dateRangeFrom, dateRangeTo, bbox]
   );
 
   return (
