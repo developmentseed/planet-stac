@@ -136,7 +136,7 @@ function Header({ stacApiUrl, setStacApiUrl, authToken, setAuthtoken }) {
                 {requireAuth && (
                   <FormControl isRequired isInvalid={tokenError} mt="5">
                     <FormLabel>Enter auth token</FormLabel>
-                    <Input value={token || ""} onChange={handleTokenChange} />
+                    <Input type="password" value={token || ""} onChange={handleTokenChange} />
                     {tokenError && (
                       <FormErrorMessage>{tokenError}</FormErrorMessage>
                     )}
