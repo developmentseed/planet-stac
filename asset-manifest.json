@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/planet-stac/static/css/main.6a43a0bd.css",
-    "main.js": "/planet-stac/static/js/main.78c4fb23.js",
+    "main.js": "/planet-stac/static/js/main.dbc0ad82.js",
     "static/js/787.c7c08328.chunk.js": "/planet-stac/static/js/787.c7c08328.chunk.js",
     "index.html": "/planet-stac/index.html",
     "main.6a43a0bd.css.map": "/planet-stac/static/css/main.6a43a0bd.css.map",
-    "main.78c4fb23.js.map": "/planet-stac/static/js/main.78c4fb23.js.map",
+    "main.dbc0ad82.js.map": "/planet-stac/static/js/main.dbc0ad82.js.map",
     "787.c7c08328.chunk.js.map": "/planet-stac/static/js/787.c7c08328.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a43a0bd.css",
-    "static/js/main.78c4fb23.js"
+    "static/js/main.dbc0ad82.js"
   ]
 }
