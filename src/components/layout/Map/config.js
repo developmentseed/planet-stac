@@ -8,7 +8,12 @@ export const backgroundMapConfig = {
 };
 
 export const itemsLayerFill = {
-  "fill-color": "#0080ff",
+  "fill-color": [
+    "case",
+    ["boolean", ["feature-state", "selected"], false],
+    "#38A169",
+    "#0080ff"
+  ],
   "fill-opacity": [
     "case",
     ["boolean", ["feature-state", "hover"], false],
@@ -18,6 +23,16 @@ export const itemsLayerFill = {
 };
 
 export const itemsLayerOutline = {
-  "line-color": "#0080ff",
-  "line-width": 1,
+  "line-color": [
+    "case",
+    ["boolean", ["feature-state", "selected"], false],
+    "#38A169",
+    "#0080ff"
+  ],
+  "line-width": [
+    "case",
+    ["boolean", ["feature-state", "selected"], false],
+    2,
+    1
+  ],
 };

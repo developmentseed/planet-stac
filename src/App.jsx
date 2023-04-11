@@ -92,6 +92,7 @@ function App() {
               results={results}
               highlightItem={highlightItem}
               setHighlightItem={setHighlightItem}
+              selectedItemId={selectedItemId}
               setSelectedItem={setSelectedItemId}
               isBboxDrawEnabled={isBboxDrawEnabled}
               setBbox={handleBboxDrawComplete}
@@ -106,6 +107,7 @@ function App() {
               loading={state === "LOADING"}
               highlightItem={highlightItem}
               setHighlightItem={setHighlightItem}
+              selectedItemId={selectedItemId}
               setSelectedItem={setSelectedItemId}
             />
             <ItemView selectedItem={selectedItem} setSelectedItem={setSelectedItemId} />

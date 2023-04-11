@@ -1,9 +1,23 @@
 import { useEffect, useState, useRef } from "react";
 import T from "prop-types";
 
-function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, onClick, highlightFeature }) {
+function Layer({
+  id,
+  map,
+  source,
+  type,
+  layout,
+  paint,
+  onMouseOver,
+  onMouseOut,
+  onClick,
+  highlightFeature,
+  selectedItem,
+}) {
   const [mapLayer, setMapLayer] = useState();
   const highlightFeatureRef = useRef(highlightFeature);
+  const selectedItemRef = useRef(selectedItem);
+
   useEffect(
     () => {
       if (highlightFeatureRef.current) {
@@ -24,6 +38,24 @@ function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, 
     },
     [highlightFeature, map, source]
   );
+
+  useEffect(() => {
+    if (selectedItemRef.current) {
+      // Remove the selection from the existing selected feature
+      map.setFeatureState(
+        { source, id: selectedItemRef.current },
+        { selected: false }
+      );
+    }
+    if (selectedItem) {
+      // Add the selection the newly highlighted feature
+      map.setFeatureState(
+        { source, id: selectedItem },
+        { selected: true }
+      );
+    }
+    selectedItemRef.current = selectedItem;
+  }, [selectedItem, map, source]);
 
   useEffect(() => {
     if (map.getLayer(id)) return;
@@ -85,6 +117,7 @@ Layer.propTypes = {
   onMouseOut: T.func,
   onClick: T.func,
   highlightFeature: T.string,
+  selectedItem: T.string,
 };
 
 Layer.defaultProps = {

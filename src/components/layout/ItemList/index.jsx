@@ -5,7 +5,16 @@ import { Grid, Box, Text, Spinner, Button, GridItem } from "@chakra-ui/react";
 import { Item } from "./Item";
 import { stac } from "../../../types";
 
-function ItemList({ nextPage, previousPage, result, loading, setHighlightItem, highlightItem, setSelectedItem }) {
+function ItemList({
+  nextPage,
+  previousPage,
+  result,
+  loading,
+  setHighlightItem,
+  highlightItem,
+  setSelectedItem,
+  selectedItemId
+}) {
   return (
     <Grid templateRows="max-content 1fr" position="absolute" top="0" left="0" right="0" bottom="0">
       <Text p="3" fontSize="l" fontWeight="bold" as="h2">Item List</Text>
@@ -35,6 +44,7 @@ function ItemList({ nextPage, previousPage, result, loading, setHighlightItem, h
                   onMouseOut={() => setHighlightItem()}
                   highlighted={id === highlightItem}
                   selectItem={setSelectedItem}
+                  isSelected={id === selectedItemId}
                 />
               ))}
             </Box>
@@ -67,6 +77,7 @@ ItemList.propTypes = {
   setHighlightItem: T.func.isRequired,
   highlightItem: T.string,
   setSelectedItem: T.func.isRequired,
+  selectedItemId: T.string,
 };
 
 export { ItemList };
