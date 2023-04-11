@@ -92,6 +92,7 @@ function App() {
               results={results}
               highlightItem={highlightItem}
               setHighlightItem={setHighlightItem}
+              setSelectedItem={setSelectedItemId}
               isBboxDrawEnabled={isBboxDrawEnabled}
               setBbox={handleBboxDrawComplete}
               bbox={bbox}

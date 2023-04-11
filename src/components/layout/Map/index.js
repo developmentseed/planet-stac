@@ -25,7 +25,7 @@ const addIdToProperties = (feature) => {
   };
 };
 
-function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setBbox, bbox }) {
+function Map({ results, highlightItem, setHighlightItem, setSelectedItem, isBboxDrawEnabled, setBbox, bbox }) {
   const items = useMemo(() => {
     if (!results?.features) return null;
     return {
@@ -58,6 +58,7 @@ function Map({ results, highlightItem, setHighlightItem, isBboxDrawEnabled, setB
             paint={itemsLayerFill}
             onMouseOver={(e) => setHighlightItem(e.features[0].properties.id)}
             onMouseOut={() => setHighlightItem()}
+            onClick={(e) => setSelectedItem(e.features[0].properties.id)}
             highlightFeature={highlightItem}
           />
           <Layer id="items-layer-outline" type="line" paint={itemsLayerOutline} />
@@ -74,6 +75,7 @@ Map.propTypes = {
   }),
   highlightItem: T.string,
   setHighlightItem: T.func.isRequired,
+  setSelectedItem: T.func.isRequired,
   isBboxDrawEnabled: T.bool,
   setBbox: T.func.isRequired,
   bbox: T.arrayOf(T.number)

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import T from "prop-types";
 
-function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, highlightFeature }) {
+function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, onClick, highlightFeature }) {
   const [mapLayer, setMapLayer] = useState();
   const highlightFeatureRef = useRef(highlightFeature);
   useEffect(
@@ -60,6 +60,9 @@ function Layer({ id, map, source, type, layout, paint, onMouseOver, onMouseOut, 
         }
       );
     }
+    if (onClick) {
+      map.on("click", id, onClick);
+    }
 
     return () => {
       if (mapLayer) {
@@ -80,6 +83,7 @@ Layer.propTypes = {
   map: T.object,
   onMouseOver: T.func,
   onMouseOut: T.func,
+  onClick: T.func,
   highlightFeature: T.string,
 };
 
