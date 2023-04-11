@@ -18,7 +18,7 @@ function Item({ id, title, collection, numberAssets, onMouseOver, onMouseOut, hi
     if (isSelected) return "green.500";
     return "white";
   }, [isSelected, highlighted]);
-console.log(title);
+
   return (
     <Box
       borderTop="1px solid"
