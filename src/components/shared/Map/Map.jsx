@@ -21,7 +21,7 @@ function Map({ center, zoom, bounds, children }) {
 
   useEffect(() => {
     if (!map.current || !bounds) return;
-    map.current.fitBounds(bounds, { padding: 20 });
+    map.current.fitBounds(bounds, { padding: 50 });
   }, [bounds]);
 
   return (

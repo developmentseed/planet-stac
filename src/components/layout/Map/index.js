@@ -45,8 +45,14 @@ function Map({
 
   const bounds = useMemo(() => {
     if (!results?.features?.length) return;
+
+    if (selectedItemId) {
+      const item = results.features.find(({ id }) => id === selectedItemId);
+      return getBbox(item);
+    }
+
     return getBbox(results);
-  }, [results]);
+  }, [results, selectedItemId]);
 
   return (
     <GenericMap bounds={bounds}>
