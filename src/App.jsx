@@ -86,7 +86,7 @@ function App() {
             bbox={{ setIsBboxDrawEnabled, bbox, setBbox }}
           />
         </GridItem>
-        <Grid templateColumns="1fr 400px" position="relative">
+        <Grid templateColumns="1fr 500px" position="relative">
           <GridItem position="relative">
             <Map
               results={results}
